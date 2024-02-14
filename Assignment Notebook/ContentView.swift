@@ -12,35 +12,40 @@ struct ContentView: View {
     @State private var showingAddAssignmentView = false
     var body: some View {
         NavigationView {
-            List {
-                ForEach(assignmentList.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.course)
-                                .font(.headline)
-                            Text(item.description)
+            ZStack {
+                Color.red.opacity(0.7).ignoresSafeArea()
+                List {
+                    ForEach(assignmentList.items) { item in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.course)
+                                    .font(.headline)
+                                Text(item.description)
+                            }
+                            Spacer()
+                            Text(item.dueDate, style: .date)
                         }
-                        Spacer()
-                        Text(item.dueDate, style: .date)
                     }
-                    }
-                .onMove { indices, newOffset in
-                    assignmentList.items.move(fromOffsets: indices, toOffset: newOffset)
-                }
-                .onDelete { indexSet in
-                    assignmentList.items.remove(atOffsets: indexSet)
+                    .onMove (perform:  { indices, newOffset in
+                        assignmentList.items.move(fromOffsets: indices, toOffset: newOffset)
+                    })
+                    .onDelete (perform: { indexSet in
+                        assignmentList.items.remove(atOffsets: indexSet)
+                    })
                 }
                 .sheet(isPresented: $showingAddAssignmentView, content: {
                     AddAssignmentView(assignmentList: assignmentList)
                 })
-                .navigationBarTitle("Things", displayMode: .inline)
+                .navigationBarTitle("Assignments", displayMode: .inline)
                 .navigationBarItems(leading: EditButton(), trailing:
                                         Button (action: {
                     showingAddAssignmentView = true }) {
                         Image(systemName: "plus")
                     })
-
-                }
+            }
+            .onAppear {
+                       UITableView.appearance().backgroundColor = .clear
+                   }
         }
     }
 }
