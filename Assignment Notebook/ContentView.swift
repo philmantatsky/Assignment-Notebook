@@ -13,18 +13,27 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.red.opacity(0.7).ignoresSafeArea()
                 List {
                     ForEach(assignmentList.items) { item in
                         HStack {
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 8) {
                                 Text(item.course)
                                     .font(.headline)
+                                    .foregroundColor(.white)
                                 Text(item.description)
+                                    .foregroundColor(.white)
                             }
                             Spacer()
                             Text(item.dueDate, style: .date)
+                                .foregroundColor(.white)
                         }
+                        .padding()
+                        .background(item.course == "High" ? Color.red.opacity(0.7) :
+                                        (item.course == "Medium" ? Color.yellow.opacity(0.7) :
+                                            (item.course == "Low" ? Color.green.opacity(0.7) : Color.gray.opacity(0.7))))
+                        .cornerRadius(8)
+                        .padding(.vertical, 4)
+                        .shadow(radius: 2)
                     }
                     .onMove (perform:  { indices, newOffset in
                         assignmentList.items.move(fromOffsets: indices, toOffset: newOffset)
@@ -44,8 +53,8 @@ struct ContentView: View {
                     })
             }
             .onAppear {
-                       UITableView.appearance().backgroundColor = .clear
-                   }
+                UITableView.appearance().backgroundColor = .clear
+            }
         }
     }
 }
