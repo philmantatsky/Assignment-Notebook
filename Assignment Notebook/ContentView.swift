@@ -28,9 +28,12 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                         }
                         .padding()
-                        .background(item.course == "High" ? Color.red.opacity(0.7) :
-                                        (item.course == "Medium" ? Color.yellow.opacity(0.7) :
-                                            (item.course == "Low" ? Color.green.opacity(0.7) : Color.gray.opacity(0.7))))
+                        .background(item.course == "Math" ? Color.red.opacity(0.7) :
+                                        (item.course == "Science" ? Color.yellow.opacity(0.7) :
+                                            (item.course == "History" ? Color.green.opacity(0.7) :
+                                                (item.course == "PE" ? Color.orange.opacity(0.7) :
+                                                    (item.course == "English" ? Color.purple.opacity(0.7) :
+                                                Color.gray.opacity(0.7))))))
                         .cornerRadius(8)
                         .padding(.vertical, 4)
                         .shadow(radius: 2)

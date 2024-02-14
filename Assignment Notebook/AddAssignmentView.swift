@@ -14,7 +14,7 @@ struct AddAssignmentView: View {
     @State private var description = ""
     @State private var dueDate = Date()
     @Environment(\.presentationMode) var presentationMode
-    static let courses = ["High", "Medium", "Low"]
+    static let courses = ["Math", "Science", "English", "PE", "History"]
     var body: some View {
         ZStack {
             Color.red.opacity(0.7).edgesIgnoringSafeArea(.all)
